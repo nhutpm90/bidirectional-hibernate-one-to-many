@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property resource="application.properties" />
+
+    <springProperty scope="context" name="loggingFolder" source="logging.folder" defaultValue="logs" />
+    <springProperty scope="context" name="loggingFileName" source="logging.file.name" defaultValue="log.log" />
+
+    <springProperty scope="context" name="loggingFileSizeMax" source="logging.file.size.max" defaultValue="10MB" />
+    <springProperty scope="context" name="loggingFileNameArchive" source="logging.file.name.archive" defaultValue="log-%i.log.zip" />
+    <springProperty scope="context" name="loggingFileArchiveMaxFiles" source="logging.file.archive.maxFiles" defaultValue="10" />
+
+    <appender name="CONSOLE_APPENDER" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>[${HOSTNAME}] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] [%logger{36}] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${loggingFolder}/${loggingFileName}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${loggingFolder}/${loggingFileNameArchive}</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>${loggingFileArchiveMaxFiles}</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>${loggingFileSizeMax}</maxFileSize>
+        </triggeringPolicy>
+
+        <append>true</append>
+        <encoder>
+            <pattern>[${HOSTNAME}] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] [%logger{36}] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="FILE_APPENDER"/>
+        <appender-ref ref="CONSOLE_APPENDER"/>
+    </root>
+</configuration>
