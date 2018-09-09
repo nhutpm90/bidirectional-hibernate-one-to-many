@@ -1,11 +1,5 @@
 .classpath
 .project
-target/classes/application.properties
-target/classes/logback-spring.xml
-target/classes/META-INF/MANIFEST.MF
-.settings/org.eclipse.core.resources.prefs
-.settings/org.eclipse.jdt.core.prefs
-.settings/org.eclipse.m2e.core.prefs
-.settings/org.eclipse.wst.common.project.facet.core.xml
-target/classes/META-INF/maven/com.myapp.hibernate/bidirectional-relational-mapping/pom.properties
-target/classes/META-INF/maven/com.myapp.hibernate/bidirectional-relational-mapping/pom.xml
+target/
+.settings/
+logs/
